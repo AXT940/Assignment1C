@@ -45,15 +45,15 @@ void test_tack2(){
 	for (i = 0; i < 5; i++) {
 		pthread_join(threads[i], NULL);
 	}
-
+	//pthread_join(threads[0], NULL);
 	// The tree should only have one node now
 	int count = countNodes(root);
 	int sum = sumSubtree(root);
 
 	if (count == 1 && sum == 1){
-		printf("Test for Part2 seems OK\n");
+		printf("Test: Given for Part2 seems OK\n");
 	} else{
-		printf("Test for Part2 fail\n");
+		printf("Test: Given for Part2 fail\n");
 	}
 
 	// Free the tree
@@ -61,6 +61,40 @@ void test_tack2(){
 }
 
 // TODO: You could add more test functions here
+
+void test_1() {
+	char* client_name = "client6_commands";
+	pthread_t thread;
+	
+	pthread_create(&thread, NULL, (void*) ServeClient, client_name);
+	pthread_join(thread, NULL);
+	
+	int count = countNodes(root);
+	int sum = sumSubtree(root);
+	
+	if (count == 7 && sum == 42) {
+		printf("Test1 for Part2 seems ok.\n");
+	} else {
+		printf("Test1 for Part2 failed.\n");
+	}
+	
+	clean();
+}
+
+void test_2() {
+	char* client_name[2] = {"client6_commands", "client7_commands"};
+	pthread_t threads[2];
+	
+	pthread_create(&threads[0], NULL, (void*) ServeClient, client_name[0]);
+	pthread_create(&threads[1], NULL, (void*) ServeClient, client_name[1]);
+	
+	pthread_join(threads[0], NULL);
+	pthread_join(threads[1], NULL);
+	
+	clean();
+	
+	printf("Test2 for Part2 complete.\n");
+}
 
 int main(int argc, char *argv[]){
 
@@ -74,6 +108,7 @@ int main(int argc, char *argv[]){
 	test_tack2();
 
 	// TODO: You could call your test functions at here
-
+	test_1();
+	test_2();
 	return 0;
 }

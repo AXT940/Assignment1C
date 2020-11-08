@@ -1,0 +1,6 @@
+insertNode 4
+deleteNode 2
+deleteNode 10
+insertNode 12
+countNodes
+sumSubtree

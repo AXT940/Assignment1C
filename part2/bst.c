@@ -42,6 +42,10 @@ Node* insertNode(Node* root, int value) {
 
 void printSubtree(Node *N) {
 	//in order
+	if (N == NULL) {
+		return;	
+	}
+	
 	if (N->left != NULL) {
 		printSubtree(N->left);
 	} 
@@ -68,9 +72,7 @@ void recursiveCount(Node *N, int *pCounter) {
 int countNodes(Node *N) {
 	int counter = 0;
 	int * pCounter = &counter;
-	if (N == NULL) {
-		return 0;
-	}
+	if (N == NULL) return 0;
 	recursiveCount(N, pCounter);
 	return *pCounter;
 }
@@ -90,6 +92,7 @@ void recursiveSum(Node *N, int *pSum) {
 int sumSubtree(Node *N) {
 	int sum= 0;
 	int *pSum = &sum;
+	if (N == NULL) return 0;
 	recursiveSum(N, pSum);
 	return *pSum;
 }
@@ -150,5 +153,6 @@ Node* deleteNode(Node* root, int value) {
 	//case 1: leaf node, just remove
 	//case 2: one subtree, remove node and move sub tree up
 	//case 3: two subtrees, remove node, pull up right trees smallest node, pull right of smallest node up
+	//case 4: node specified doesn't exist
 	return root;
 }

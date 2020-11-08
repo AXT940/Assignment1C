@@ -5,6 +5,11 @@ int main()
 {
 	Node *root=NULL;
 	
+	printSubtree(root);
+	printf("Number of nodes=%d\n", countNodes(root));
+	printf("%d\n", sumSubtree(root));
+	printf("\n");
+	
 	root=insertNode(root, 14);
 	root=insertNode(root, 12);
 	root=insertNode(root, 6);
