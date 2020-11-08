@@ -74,7 +74,7 @@ int countNodes(Node *N) {
 	int * pCounter = &counter;
 	if (N == NULL) return 0;
 	recursiveCount(N, pCounter);
-	return *pCounter;
+	return counter;
 }
 
 void recursiveSum(Node *N, int *pSum) {
@@ -94,7 +94,7 @@ int sumSubtree(Node *N) {
 	int *pSum = &sum;
 	if (N == NULL) return 0;
 	recursiveSum(N, pSum);
-	return *pSum;
+	return sum;
 }
 
 void freeNode(Node* N) {

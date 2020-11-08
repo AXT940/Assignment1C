@@ -105,10 +105,10 @@ int main(int argc, char *argv[]){
 	    }
  	}
 
-	test_tack2();
-
 	// TODO: You could call your test functions at here
 	test_1();
 	test_2();
+	
+	test_tack2();
 	return 0;
 }
