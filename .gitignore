@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 part1/a.out
 test_bst
 bst.o
@@ -7,3 +8,10 @@ part2/bst.o
 part2/a.out
 part2/b_tree.log
 part2/u_tree.log
+part1/test_bst
+part2/test_bst
+=======
+a.out
+test_bst
+bst.o
+>>>>>>> 5ef4b35225cb27366964df05be4e6b26a075d5de
