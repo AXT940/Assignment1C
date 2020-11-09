@@ -73,9 +73,9 @@ void test_1() {
 	int sum = sumSubtree(root);
 	
 	if (count == 7 && sum == 42) {
-		printf("Test1 for Part2 seems ok.\n");
+		//printf("Test1 for Part2 seems ok.\n");
 	} else {
-		printf("Test1 for Part2 failed.\n");
+		//printf("Test1 for Part2 failed.\n");
 	}
 	
 	clean();
@@ -93,7 +93,19 @@ void test_2() {
 	
 	clean();
 	
-	printf("Test2 for Part2 complete.\n");
+	//printf("Test2 for Part2 complete.\n");
+}
+
+void test_3() {
+	char* client_name = "client9_commands";
+	pthread_t thread;
+	
+	pthread_create(&thread, NULL, (void*) ServeClient, client_name);
+	pthread_join(thread, NULL);
+	
+	//printf("Test for Part3 complete.\n");
+	
+	clean();
 }
 
 int main(int argc, char *argv[]){
@@ -110,5 +122,7 @@ int main(int argc, char *argv[]){
 	test_2();
 	
 	test_tack2();
+	
+	test_3();
 	return 0;
 }

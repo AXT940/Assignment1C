@@ -1,0 +1,26 @@
+insertNode 3
+deleteNode 3
+sumSubtree
+countNodes
+insertNode 7
+insertNode 4
+insertNode 20
+insertNode 10
+insertNode 8
+insertNode 9
+insertNode 11
+insertNode 12
+insertNode 30
+insertNode 25
+insertNode 31
+printSubtree
+deleteNode 10
+printSubtree
+insertNode 26
+insertNode 28
+insertNode 27
+insertNode 29
+deleteNode 30
+printSubtree
+countNodes
+sumSubtree

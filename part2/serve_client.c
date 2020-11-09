@@ -1,62 +1,51 @@
-#define COMMAND_LENGTH 50
+#define COMMAND_LENGTH 30
+
 pthread_rwlock_t lock = PTHREAD_RWLOCK_INITIALIZER;
 
-
-unsigned int convertValue(char* string) {
-	if (string[strlen(string) -1] == '\n') string[strlen(string) -1] = '\0';
-	return strtoul(string, NULL, 10);
-} 
-
 void* ServeClient(char *client){
-	FILE *command_file = fopen(client, "r"); //opens the file 
-	if (command_file == NULL) exit(-1); //failed to open the file
+	FILE *command_file = fopen(client, "r");
+	if (command_file == NULL) exit(-1);
 	
 	char command_line[COMMAND_LENGTH];
-	char delimiter[] = " ";
-	
 	while (fgets(command_line, COMMAND_LENGTH, command_file) != NULL) { 
-		char* command = strtok(command_line, delimiter);
-		unsigned int data = 0;
+		char command[COMMAND_LENGTH];
+		char number[COMMAND_LENGTH];
+		int value = 0;
 		
-		if (strcmp(command, "insertNode") == 0) { //write
-			char* value = strtok(NULL, delimiter);
-			data = convertValue(value);
-			
-			pthread_rwlock_wrlock(&lock);
-			root = insertNode(root, data);
-			pthread_rwlock_unlock(&lock);
-			
-			printf("[%s]%s %d\n", client, command, data);
-		} else if (strcmp(command, "deleteNode") == 0) { //write
-			char* value = strtok(NULL, delimiter);
-			data = convertValue(value);
-			
-			pthread_rwlock_wrlock(&lock);
-			root = deleteNode(root, data);
-			pthread_rwlock_unlock(&lock);
-			
-			printf("[%s]%s %d\n", client, command, data);
-		} else if (strcmp(command, "countNodes\n") == 0) { //read
+		sscanf(command_line, "%s %s", command, number);
+		
+		if (strcmp(command, "countNodes") == 0) {
 			pthread_rwlock_rdlock(&lock);
-			data = countNodes(root);
-			pthread_rwlock_unlock(&lock);			
-					
-			printf("[%s]countNodes = %d\n", client, data);
-		} else if (strcmp(command, "sumSubtree\n") == 0) { //read
-			pthread_rwlock_rdlock(&lock);
-			data = sumSubtree(root);
+			value = countNodes(root);
 			pthread_rwlock_unlock(&lock);
-
-			printf("[%s]sumSubtree = %d\n", client, data);
-		} else if (strcmp(command, "wait\n") == 0) {
-			printf("[%s] WAITING.\n", client);
-			sleep(1);
-		} else {
-			printf("[%s]Command error: %s.\n", client, command);
+			
+			printf("[%s]%s = %d\n", client, command, value);
+			continue;
+		} else if (strcmp(command, "sumSubtree") == 0) {
+			pthread_rwlock_rdlock(&lock);
+			value = sumSubtree(root);
+			pthread_rwlock_unlock(&lock);
+			
+			printf("[%s]%s = %d\n", client, command, value);
+			continue;
+		}
+		value = strtoul(number, NULL, 10);
+		
+		if (strcmp(command, "insertNode") == 0) {
+			pthread_rwlock_wrlock(&lock);
+			root = insertNode(root, value);
+			pthread_rwlock_unlock(&lock);
+			
+			printf("[%s]%s %d\n", client, command, value);
+		} else if (strcmp(command, "deleteNode") == 0) {
+			pthread_rwlock_wrlock(&lock);
+			root = deleteNode(root, value);
+			pthread_rwlock_unlock(&lock);
+			
+			printf("[%s]%s %d\n", client, command, value);
 		}
 	}
-	printf("[%s]File Finished\n", client);
+	
 	fclose(command_file);
 	return NULL;
 }
-

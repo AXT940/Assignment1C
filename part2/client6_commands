@@ -2,7 +2,6 @@ insertNode 6
 insertNode 2
 insertNode 3
 insertNode 1
-wait
 insertNode 10
 insertNode 9
 insertNode 11
